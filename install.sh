@@ -63,12 +63,18 @@ link_file "editor/tmux.conf" "$HOME/.tmux.conf"
 # ---------------------------------------------------------------------------
 # Default shell — set to bash if not already
 # ---------------------------------------------------------------------------
-if [[ "$(getent passwd "$USER" | cut -d: -f7)" != "/bin/bash" ]]; then
-  if command -v chsh &>/dev/null && grep -q '/bin/bash' /etc/shells; then
+CURRENT_SHELL="$(getent passwd "${USER:-$(whoami)}" | cut -d: -f7)"
+if [[ "$CURRENT_SHELL" != "/bin/bash" ]]; then
+  # Prefer usermod (no PAM/password needed), fall back to chsh
+  if command -v usermod &>/dev/null; then
+    sudo usermod -s /bin/bash "${USER:-$(whoami)}" 2>/dev/null && \
+      log "default shell changed to /bin/bash (takes effect on next login)" || \
+      warn "usermod failed — you may need to run: sudo usermod -s /bin/bash \$USER"
+  elif command -v chsh &>/dev/null && grep -q '/bin/bash' /etc/shells; then
     chsh -s /bin/bash
     log "default shell changed to /bin/bash (takes effect on next login)"
   else
-    warn "could not set default shell to bash — chsh unavailable or bash not in /etc/shells"
+    warn "could not set default shell — neither usermod nor chsh available"
   fi
 else
   log "default shell already bash"
