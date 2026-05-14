@@ -59,6 +59,7 @@ link_file "git/gitignore"  "$HOME/.gitignore_global"
 # ---------------------------------------------------------------------------
 link_file "editor/vimrc"   "$HOME/.vimrc"
 link_file "editor/tmux.conf" "$HOME/.tmux.conf"
+link_file "editor/nanorc"  "$HOME/.nanorc"
 
 # ---------------------------------------------------------------------------
 # Default shell — set to bash if not already

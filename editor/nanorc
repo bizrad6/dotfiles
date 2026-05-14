@@ -1,0 +1,53 @@
+## =============================================================================
+## ~/.nanorc
+## =============================================================================
+
+## ----------- Syntax highlighting ---------------------------------------------
+## Include all .nanorc files shipped with nano (path varies by distro).
+## The `include` directive silently skips missing globs on nano >= 4.0,
+## so these are safe to keep even if nano isn't installed yet.
+include "/usr/share/nano/*.nanorc"
+include "/usr/share/nano/extra/*.nanorc"
+## Homebrew (macOS)
+include "/opt/homebrew/share/nano/*.nanorc"
+## Some distros put extras here
+include "/usr/share/nano-syntax-highlighting/*.nanorc"
+
+## ----------- Display ---------------------------------------------------------
+set linenumbers        ## show line numbers in the left margin
+set numbercolor cyan   ## colour for line numbers
+set titlecolor bold,white,blue   ## top title bar
+set statuscolor bold,white,green ## bottom status bar
+set errorcolor bold,white,red    ## error messages
+set selectedcolor bold,black,cyan ## selected text
+
+## show cursor position (row, col) in the status bar
+set constantshow
+
+## ----------- Editing ---------------------------------------------------------
+set autoindent         ## preserve indent of previous line on Enter
+set tabsize 4          ## tab width
+set tabstospaces       ## insert spaces instead of a hard tab
+set trimblanks         ## strip trailing whitespace on each saved line
+set unix               ## always save with Unix line endings (LF)
+set magic              ## use libmagic to detect file type for syntax highlighting
+
+## ----------- Interface -------------------------------------------------------
+set mouse              ## enable mouse click to position cursor
+set smarthome          ## first Home goes to first non-whitespace char
+set zap                ## Backspace/Delete on a selection deletes it
+set afterends          ## Ctrl-Right stops at word ends (not beginnings)
+set wordchars "_"      ## treat underscores as part of a word
+
+## ----------- Search ----------------------------------------------------------
+set casesensitive      ## default searches are case-sensitive
+                       ## (toggle with Alt-C at the search prompt)
+
+## ----------- Backup ----------------------------------------------------------
+## Uncomment to keep a backup of every file before saving:
+# set backup
+# set backupdir "~/.nano_backups"
+
+## ----------- Spell check -----------------------------------------------------
+## Uncomment if aspell is installed:
+# set speller "aspell -x -c"
