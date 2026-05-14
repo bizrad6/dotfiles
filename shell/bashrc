@@ -1,0 +1,32 @@
+# =============================================================================
+# ~/.bashrc — loaded for interactive bash sessions
+# =============================================================================
+
+# ----------- Source global defs (Fedora/RHEL convention) --------------------
+[[ -f /etc/bashrc ]] && source /etc/bashrc
+
+# ----------- Core paths & env -----------------------------------------------
+[[ -f "$HOME/.exports" ]] && source "$HOME/.exports"
+
+# ----------- Aliases ---------------------------------------------------------
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+
+# ----------- History ---------------------------------------------------------
+HISTSIZE=50000
+HISTFILESIZE=100000
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# ----------- Prompt ----------------------------------------------------------
+parse_git_branch() {
+  git branch 2>/dev/null | grep '^\*' | sed 's/^\* //'
+}
+PS1='\[\e[36m\]\u@\h\[\e[0m\] \[\e[33m\]\w\[\e[0m\]\[\e[32m\]$(b=$(parse_git_branch); [[ -n $b ]] && echo " ($b)")\[\e[0m\] \$ '
+
+# ----------- Completion ------------------------------------------------------
+[[ -f /usr/share/bash-completion/bash_completion ]] && \
+  source /usr/share/bash-completion/bash_completion
+
+# ----------- Local overrides (machine-specific, not committed) ---------------
+[[ -f "$HOME/.bashrc.local" ]] && source "$HOME/.bashrc.local"

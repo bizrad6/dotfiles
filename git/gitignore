@@ -1,0 +1,66 @@
+# =============================================================================
+# ~/.gitignore_global — patterns ignored across ALL repositories
+# =============================================================================
+
+# ----------- macOS -----------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# ----------- Linux -----------------------------------------------------------
+*~
+.fuse_hidden*
+.nfs*
+
+# ----------- Windows ---------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ----------- Editors ---------------------------------------------------------
+# Vim
+*.swp
+*.swo
+*.swn
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+Session.vim
+.netrwhist
+
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ----------- Runtime & build artifacts ---------------------------------------
+*.pyc
+*.pyo
+__pycache__/
+*.class
+*.o
+*.so
+*.dylib
+node_modules/
+dist/
+build/
+target/
+*.egg-info/
+
+# ----------- Environment & secrets -------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/

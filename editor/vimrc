@@ -1,0 +1,76 @@
+" =============================================================================
+" ~/.vimrc
+" =============================================================================
+
+" ----------- Basics ----------------------------------------------------------
+set nocompatible
+filetype plugin indent on
+syntax on
+
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
+
+" ----------- Display ---------------------------------------------------------
+set number
+set relativenumber
+set cursorline
+set ruler
+set showcmd
+set showmode
+set laststatus=2
+set scrolloff=5
+set sidescrolloff=8
+set wrap
+set linebreak
+
+" ----------- Colors ----------------------------------------------------------
+set t_Co=256
+set background=dark
+" colorscheme desert       " built-in dark theme — uncomment if desired
+
+" ----------- Indentation -----------------------------------------------------
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set autoindent
+set smartindent
+
+" ----------- Search ----------------------------------------------------------
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+nnoremap <leader><space> :nohlsearch<CR>
+
+" ----------- Files -----------------------------------------------------------
+set noswapfile
+set nobackup
+set undofile
+set undodir=~/.vim/undodir
+
+" ----------- Wild menu -------------------------------------------------------
+set wildmenu
+set wildmode=list:longest,full
+set wildignore+=*.pyc,*.o,*.swp,node_modules/**,__pycache__/**
+
+" ----------- Splits ----------------------------------------------------------
+set splitright
+set splitbelow
+
+" ----------- Key mappings ----------------------------------------------------
+let mapleader = ","
+
+" Move between splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Quick save / quit
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
+" ----------- Status line (minimal, no plugin needed) ------------------------
+set statusline=%f\ %h%m%r%=%y\ %{&fileencoding}\ %l:%c\ %P

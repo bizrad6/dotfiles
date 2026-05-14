@@ -1,0 +1,54 @@
+# =============================================================================
+# ~/.aliases — shared by both bash and zsh
+# =============================================================================
+
+# ----------- Navigation ------------------------------------------------------
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ll='ls -lhF --color=auto'
+alias la='ls -lAhF --color=auto'
+alias l='ls -CF --color=auto'
+
+# ----------- Safety rails ----------------------------------------------------
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
+# ----------- Git shortcuts ---------------------------------------------------
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gca='git commit --amend'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gl='git log --oneline --graph --decorate --all'
+alias gp='git push'
+alias gpl='git pull'
+alias gf='git fetch --all --prune'
+
+# ----------- Docker ----------------------------------------------------------
+alias dk='docker'
+alias dkps='docker ps'
+alias dkpsa='docker ps -a'
+alias dkrm='docker rm'
+alias dki='docker images'
+alias dke='docker exec -it'
+
+# ----------- Kubernetes ------------------------------------------------------
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
+alias kgn='kubectl get nodes'
+alias kd='kubectl describe'
+alias kl='kubectl logs -f'
+
+# ----------- Misc ------------------------------------------------------------
+alias grep='grep --color=auto'
+alias tree='tree -C'
+alias ports='ss -tlnp'
+alias myip='curl -s https://ipinfo.io/ip'
+alias reload='exec $SHELL -l'

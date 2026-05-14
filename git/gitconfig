@@ -1,0 +1,62 @@
+[core]
+	editor = vim
+	excludesFile = ~/.gitignore_global
+	autocrlf = input
+	whitespace = trailing-space,space-before-tab
+
+[color]
+	ui = auto
+
+[color "diff"]
+	meta       = yellow bold
+	frag       = magenta bold
+	old        = red bold
+	new        = green bold
+	whitespace = red reverse
+
+[push]
+	default = current
+	autoSetupRemote = true
+
+[pull]
+	rebase = false
+
+[fetch]
+	prune = true
+
+[diff]
+	algorithm = histogram
+	colorMoved = zebra
+
+[merge]
+	conflictstyle = diff3
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+
+[log]
+	date = relative
+
+[alias]
+	# Pretty log
+	lg  = log --oneline --graph --decorate --all
+	# Show files changed in last commit
+	last = diff HEAD~1..HEAD --name-only
+	# Undo last commit, keep changes staged
+	undo = reset --soft HEAD~1
+	# List branches sorted by last commit date
+	recent = branch --sort=-committerdate --format='%(committerdate:relative)%09%(refname:short)'
+	# Show stashes
+	sl = stash list
+	# Amend last commit without editing message
+	fixup = commit --amend --no-edit
+
+# ----------- User (override in ~/.gitconfig.local) --------------------------
+# [user]
+# 	name  = Your Name
+# 	email = you@example.com
+
+# ----------- Local machine overrides (not committed) ------------------------
+[include]
+	path = ~/.gitconfig.local

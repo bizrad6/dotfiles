@@ -1,0 +1,43 @@
+# =============================================================================
+# ~/.zshrc  — loaded for interactive zsh sessions
+# =============================================================================
+
+# ----------- Oh-My-Zsh (optional, remove if not used) -----------------------
+# export ZSH="$HOME/.oh-my-zsh"
+# ZSH_THEME="robbyrussell"
+# plugins=(git z fzf docker kubectl)
+# source "$ZSH/oh-my-zsh.sh"
+
+# ----------- Core paths & env -----------------------------------------------
+[[ -f "$HOME/.exports" ]] && source "$HOME/.exports"
+
+# ----------- Aliases ---------------------------------------------------------
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+
+# ----------- History ---------------------------------------------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+
+# ----------- Completion ------------------------------------------------------
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+
+# ----------- Key bindings ----------------------------------------------------
+bindkey -e                      # Emacs-style (Ctrl-A/E, etc.)
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+# ----------- Prompt (plain fallback, no plugin required) --------------------
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' (%b)'
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%n@%m%f %F{yellow}%~%f%F{green}${vcs_info_msg_0_}%f %# '
+
+# ----------- Local overrides (machine-specific, not committed) ---------------
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
