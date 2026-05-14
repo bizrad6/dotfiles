@@ -1,5 +1,5 @@
 [core]
-	editor = vim
+	editor = nano
 	excludesFile = ~/.gitignore_global
 	autocrlf = input
 	whitespace = trailing-space,space-before-tab
@@ -52,10 +52,9 @@
 	# Amend last commit without editing message
 	fixup = commit --amend --no-edit
 
-# ----------- User (override in ~/.gitconfig.local) --------------------------
-# [user]
-# 	name  = Your Name
-# 	email = you@example.com
+[user]
+	name  = Brad Scheppler
+	email = bscheppler@nextdoor.com
 
 # ----------- Local machine overrides (not committed) ------------------------
 [include]

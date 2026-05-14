@@ -61,6 +61,20 @@ link_file "editor/vimrc"   "$HOME/.vimrc"
 link_file "editor/tmux.conf" "$HOME/.tmux.conf"
 
 # ---------------------------------------------------------------------------
+# Default shell — set to bash if not already
+# ---------------------------------------------------------------------------
+if [[ "$(getent passwd "$USER" | cut -d: -f7)" != "/bin/bash" ]]; then
+  if command -v chsh &>/dev/null && grep -q '/bin/bash' /etc/shells; then
+    chsh -s /bin/bash
+    log "default shell changed to /bin/bash (takes effect on next login)"
+  else
+    warn "could not set default shell to bash — chsh unavailable or bash not in /etc/shells"
+  fi
+else
+  log "default shell already bash"
+fi
+
+# ---------------------------------------------------------------------------
 # Done
 # ---------------------------------------------------------------------------
 log "install complete."
