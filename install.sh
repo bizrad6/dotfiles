@@ -65,21 +65,36 @@ link_file "editor/nanorc"  "$HOME/.nanorc"
 # ---------------------------------------------------------------------------
 # Default shell — set to bash if not already
 # ---------------------------------------------------------------------------
-CURRENT_SHELL="$(getent passwd "${USER:-$(whoami)}" | cut -d: -f7)"
-if [[ "$CURRENT_SHELL" != "/bin/bash" ]]; then
-  # Prefer usermod (no PAM/password needed), fall back to chsh
-  if command -v usermod &>/dev/null; then
-    sudo usermod -s /bin/bash "${USER:-$(whoami)}" 2>/dev/null && \
-      log "default shell changed to /bin/bash (takes effect on next login)" || \
-      warn "usermod failed — you may need to run: sudo usermod -s /bin/bash \$USER"
-  elif command -v chsh &>/dev/null && grep -q '/bin/bash' /etc/shells; then
-    chsh -s /bin/bash
-    log "default shell changed to /bin/bash (takes effect on next login)"
+ME="${USER:-$(whoami)}"
+if [[ "$(uname)" == "Darwin" ]]; then
+  # macOS: chsh works without a password; /bin/bash is the system bash.
+  # Homebrew bash at /opt/homebrew/bin/bash is preferred if present.
+  TARGET_BASH="/bin/bash"
+  [[ -x "/opt/homebrew/bin/bash" ]] && TARGET_BASH="/opt/homebrew/bin/bash"
+  CURRENT_SHELL="$(dscl . -read "/Users/$ME" UserShell | awk '{print $2}' 2>/dev/null)"
+  if [[ "$CURRENT_SHELL" != "$TARGET_BASH" ]]; then
+    grep -qF "$TARGET_BASH" /etc/shells || \
+      { echo "$TARGET_BASH" | sudo tee -a /etc/shells >/dev/null && log "registered $TARGET_BASH in /etc/shells"; }
+    chsh -s "$TARGET_BASH" && \
+      log "default shell changed to $TARGET_BASH (takes effect on next login)" || \
+      warn "chsh failed — run manually: chsh -s $TARGET_BASH"
   else
-    warn "could not set default shell — neither usermod nor chsh available"
+    log "default shell already $TARGET_BASH"
   fi
 else
-  log "default shell already bash"
+  # Linux: use sudo usermod (no PAM prompt needed); getent is available.
+  CURRENT_SHELL="$(getent passwd "$ME" | cut -d: -f7)"
+  if [[ "$CURRENT_SHELL" != "/bin/bash" ]]; then
+    if command -v usermod &>/dev/null; then
+      sudo usermod -s /bin/bash "$ME" 2>/dev/null && \
+        log "default shell changed to /bin/bash (takes effect on next login)" || \
+        warn "usermod failed — run manually: sudo usermod -s /bin/bash $ME"
+    else
+      warn "usermod not found — run manually: chsh -s /bin/bash"
+    fi
+  else
+    log "default shell already bash"
+  fi
 fi
 
 # ---------------------------------------------------------------------------
