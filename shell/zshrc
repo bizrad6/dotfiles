@@ -39,5 +39,8 @@ zstyle ':vcs_info:git:*' formats ' (%b)'
 setopt PROMPT_SUBST
 PROMPT='%F{cyan}%n@%m%f %F{yellow}%~%f%F{green}${vcs_info_msg_0_}%f %# '
 
+# ----------- direnv ---------------------------------------------------------
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+
 # ----------- Local overrides (machine-specific, not committed) ---------------
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

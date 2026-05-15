@@ -46,6 +46,9 @@ alias kgn='kubectl get nodes'
 alias kd='kubectl describe'
 alias kl='kubectl logs -f'
 
+# ----------- tmux -----------------------------------------------------------
+alias tm='tmux new-session -A -s main'  # attach to 'main' or create it
+
 # ----------- Misc ------------------------------------------------------------
 alias grep='grep --color=auto'
 alias tree='tree -C'
