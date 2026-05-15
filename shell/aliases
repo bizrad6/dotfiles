@@ -18,7 +18,7 @@ alias rm='rm -i'
 # ----------- Git shortcuts ---------------------------------------------------
 alias g='git'
 alias gs='git status'
-alias ga='git add'
+alias ga='git add .'
 alias gc='git commit'
 alias gca='git commit --amend'
 alias gco='git checkout'
@@ -28,6 +28,8 @@ alias gds='git diff --staged'
 alias gl='git log --oneline --graph --decorate --all'
 alias gp='git push'
 alias gpl='git pull'
+alias gpr='git pull --rebase'
+alias gcm='git checkout main'
 alias gf='git fetch --all --prune'
 
 # ----------- Docker ----------------------------------------------------------

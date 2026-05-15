@@ -1,0 +1,31 @@
+# =============================================================================
+# ~/.functions — shell functions shared by bash and zsh
+# =============================================================================
+
+# git commit with message: gc "my message"
+gc() {
+  git commit -m "$1"
+}
+
+# Source a local coder.sh helper and run a command
+test-coder() {
+  source ~/src/dotfiles/coder.sh && "$@"
+}
+
+# Run any coder subcommand against coder-dev.corp.nextdoor.com,
+# pulling the session token from macOS Keychain.
+# Store the token with:
+#   security add-generic-password -a "$USER" -s coder-dev-session -w <TOKEN> -U
+# Get a token from: https://coder-dev.corp.nextdoor.com/cli-auth
+coder-dev() {
+  local token
+  token=$(security find-generic-password -s coder-dev-session -a "$USER" -w 2>/dev/null) || {
+    echo "No coder-dev token in Keychain. Store one with:" >&2
+    echo "  security add-generic-password -a \"\$USER\" -s coder-dev-session -w <TOKEN> -U" >&2
+    echo "Get a token from https://coder-dev.corp.nextdoor.com/cli-auth" >&2
+    return 1
+  }
+  CODER_URL=https://coder-dev.corp.nextdoor.com \
+  CODER_SESSION_TOKEN="$token" \
+    coder "$@"
+}

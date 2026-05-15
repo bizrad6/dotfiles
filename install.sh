@@ -47,6 +47,7 @@ link_file "shell/zshrc"    "$HOME/.zshrc"
 link_file "shell/bashrc"   "$HOME/.bashrc"
 link_file "shell/aliases"  "$HOME/.aliases"
 link_file "shell/exports"  "$HOME/.exports"
+link_file "shell/functions" "$HOME/.functions"
 
 # ---------------------------------------------------------------------------
 # Git config
